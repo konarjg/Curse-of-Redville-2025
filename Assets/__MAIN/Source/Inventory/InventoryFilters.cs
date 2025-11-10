@@ -1,5 +1,7 @@
-﻿namespace __MAIN.Source.Inventory {
+namespace __MAIN.Source.Inventory {
   using System.Collections.Generic;
+  using System.Linq;
+  using System.Text;
   using Items;
   using JetBrains.Annotations;
 
@@ -15,6 +17,24 @@
       Categories = categories;
       Rarities = rarities;
       Stacks = stacks;
+    }
+
+    public override string ToString() {
+      StringBuilder sb = new();
+
+      if (Categories != null) {
+        sb.Append(string.Join(",", Categories.Select(c => c.Id).OrderBy(id => id)));
+      }
+      sb.Append(";");
+      if (Rarities != null) {
+        sb.Append(string.Join(",", Rarities.Select(r => r.Id).OrderBy(id => id)));
+      }
+      sb.Append(";");
+      if (Stacks != null) {
+        sb.Append(string.Join(",", Stacks.Select(s => $"{s.Item.Id}:{s.Quantity}").OrderBy(id => id)));
+      }
+
+      return sb.ToString();
     }
   }
 }

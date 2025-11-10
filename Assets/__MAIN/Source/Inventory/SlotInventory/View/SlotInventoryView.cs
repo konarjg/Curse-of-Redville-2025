@@ -16,10 +16,8 @@ namespace __MAIN.Source.Inventory.SlotInventory.View {
     }
 
     private void OnDisplayInfoChanged(List<SlotDisplayInfo> displayInfos) {
-      for (int i = 0; i < _slotViews.Count; i++) {
-        if(i < displayInfos.Count) {
-          _slotViews[i].UpdateView(displayInfos[i]);
-        }
+      for (int i = 0; i < displayInfos.Count; i++) {
+        _slotViews[i].UpdateView(displayInfos[i]);
       }
     }
   }
