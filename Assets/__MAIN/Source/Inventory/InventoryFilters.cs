@@ -25,11 +25,15 @@ namespace __MAIN.Source.Inventory {
       if (Categories != null) {
         builder.Append(string.Join(",", Categories.Select(c => c.Id).OrderBy(id => id)));
       }
+
       builder.Append(";");
+
       if (Rarities != null) {
         builder.Append(string.Join(",", Rarities.Select(r => r.Id).OrderBy(id => id)));
       }
+
       builder.Append(";");
+
       if (Stacks != null) {
         builder.Append(string.Join(",", Stacks.Select(s => $"{s.Item.Id}:{s.Quantity}").OrderBy(id => id)));
       }
