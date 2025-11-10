@@ -16,12 +16,12 @@ namespace __MAIN.Source.Inventory.SlotInventory {
 
     private void Awake() {
       _onStructureChanged.Subscribe(OnInventoryChanged);
-      _onInventoryReordered.Subscribe(OnInventoryChanged);
+      _onInventoryReordered.Subscribe(OnInventoryReordered);
     }
 
     private void OnDestroy() {
       _onStructureChanged.Unsubscribe(OnInventoryChanged);
-      _onInventoryReordered.Unsubscribe(OnInventoryChanged);
+      _onInventoryReordered.Unsubscribe(OnInventoryReordered);
     }
 
     public void SetFilters(InventoryFilters filters) {
@@ -30,8 +30,17 @@ namespace __MAIN.Source.Inventory.SlotInventory {
     }
 
     private void OnInventoryChanged(IInventory inventory) {
-      _inventory = inventory;
+      if (_inventory == null) {
+        _inventory = inventory;
+      }
       _filteredItemsCache.Clear();
+      UpdateDisplayInfo();
+    }
+
+    private void OnInventoryReordered(IInventory inventory) {
+      if (_inventory == null) {
+        _inventory = inventory;
+      }
       UpdateDisplayInfo();
     }
 
@@ -42,7 +51,9 @@ namespace __MAIN.Source.Inventory.SlotInventory {
       }
 
       HashSet<ItemData> filteredItems = new();
-      if (_inventory == null) return filteredItems;
+      if (_inventory == null) {
+        return filteredItems;
+      }
 
       IReadOnlyCollection<ItemStack> items = _inventory.GetItems(_filters);
       foreach (ItemStack item in items) {
@@ -55,7 +66,9 @@ namespace __MAIN.Source.Inventory.SlotInventory {
     
     private void UpdateDisplayInfo() {
       _slotDisplayInfos.Clear();
-      if (_inventory == null) return;
+      if (_inventory == null) {
+        return;
+      }
 
       HashSet<ItemData> filteredItems = GetFilteredItems();
 

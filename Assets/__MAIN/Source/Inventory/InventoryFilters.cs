@@ -20,21 +20,21 @@ namespace __MAIN.Source.Inventory {
     }
 
     public override string ToString() {
-      StringBuilder sb = new();
+      StringBuilder builder = new();
 
       if (Categories != null) {
-        sb.Append(string.Join(",", Categories.Select(c => c.Id).OrderBy(id => id)));
+        builder.Append(string.Join(",", Categories.Select(c => c.Id).OrderBy(id => id)));
       }
-      sb.Append(";");
+      builder.Append(";");
       if (Rarities != null) {
-        sb.Append(string.Join(",", Rarities.Select(r => r.Id).OrderBy(id => id)));
+        builder.Append(string.Join(",", Rarities.Select(r => r.Id).OrderBy(id => id)));
       }
-      sb.Append(";");
+      builder.Append(";");
       if (Stacks != null) {
-        sb.Append(string.Join(",", Stacks.Select(s => $"{s.Item.Id}:{s.Quantity}").OrderBy(id => id)));
+        builder.Append(string.Join(",", Stacks.Select(s => $"{s.Item.Id}:{s.Quantity}").OrderBy(id => id)));
       }
 
-      return sb.ToString();
+      return builder.ToString();
     }
   }
 }
