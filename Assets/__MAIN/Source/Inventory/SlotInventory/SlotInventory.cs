@@ -9,8 +9,9 @@
 
   public class SlotInventory : MonoBehaviour, IInventory {
 
-    [SerializeField] private VoidEvent _onStructureChanged;
-    [SerializeField] private VoidEvent _onInventoryReordered;
+    public GameEvent<IInventory> OnStructureChanged;
+    public GameEvent<IInventory> OnInventoryReordered;
+
     [SerializeField] private int _slotsCount;
 
     private ItemStack[] _slots;
@@ -22,24 +23,19 @@
 
     private void Awake() {
       _slots = new ItemStack[_slotsCount];
-      _onStructureChanged?.Subscribe(RecalculateTotals);
       RecalculateTotals();
-    }
-
-    private void OnDestroy() {
-      _onStructureChanged?.Unsubscribe(RecalculateTotals);
     }
 
     public ItemStack TryAdd(ItemStack stackToAdd) {
       ItemStack remainingAfterMerge = TryMergeWithExistingStacks(stackToAdd);
       
       if (remainingAfterMerge == null) {
-        _onStructureChanged?.Invoke();
+        OnStructureChanged?.Invoke(this);
         return null;
       }
       
       ItemStack finalRemainder = TryFillEmptySlots(remainingAfterMerge);
-      _onStructureChanged?.Invoke();
+      OnStructureChanged?.Invoke(this);
       return finalRemainder;
     }
 
@@ -67,7 +63,7 @@
         }
       }
       
-      _onStructureChanged?.Invoke();
+      OnStructureChanged?.Invoke(this);
       return true;
     }
 
@@ -119,7 +115,7 @@
       
       removedStack = _slots[index];
       _slots[index] = null;
-      _onStructureChanged?.Invoke();
+      OnStructureChanged?.Invoke(this);
       return true;
     }
 
@@ -131,7 +127,7 @@
         return true;
       }
       (_slots[indexA], _slots[indexB]) = (_slots[indexB], _slots[indexA]);
-      _onInventoryReordered?.Invoke();
+      OnInventoryReordered?.Invoke(this);
       return true;
     }
 
