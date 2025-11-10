@@ -1,4 +1,4 @@
-﻿namespace __MAIN.Source.Inventory.SlotInventory {
+namespace __MAIN.Source.Inventory.SlotInventory {
   using System;
   using System.Collections.Generic;
   using System.Linq;
@@ -12,7 +12,8 @@
     public GameEvent<IInventory> OnStructureChanged;
     public GameEvent<IInventory> OnInventoryReordered;
 
-    [SerializeField] private int _slotsCount;
+    [SerializeField]
+    private int _slotsCount;
 
     private ItemStack[] _slots;
     private readonly Dictionary<ItemData, int> _totalQuantitiesLookup = new();

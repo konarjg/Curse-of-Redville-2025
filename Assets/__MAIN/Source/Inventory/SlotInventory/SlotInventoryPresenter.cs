@@ -5,9 +5,14 @@ namespace __MAIN.Source.Inventory.SlotInventory {
   using UnityEngine;
 
   public class SlotInventoryPresenter : MonoBehaviour {
-    [SerializeField] private GameEvent<IInventory> _onStructureChanged;
-    [SerializeField] private GameEvent<IInventory> _onInventoryReordered;
-    [SerializeField] private GameEvent<List<SlotDisplayInfo>> _onDisplayInfoChanged;
+    [SerializeField]
+    private GameEvent<IInventory> _onStructureChanged;
+
+    [SerializeField]
+    private GameEvent<IInventory> _onInventoryReordered;
+
+    [SerializeField]
+    private GameEvent<List<SlotDisplayInfo>> _onDisplayInfoChanged;
 
     private IInventory _inventory;
     private InventoryFilters _filters = new();
