@@ -1,4 +1,4 @@
-﻿# Curse of Redville 2025 - AI Agent Development Guide
+# Curse of Redville 2025 - AI Agent Development Guide
 
 This document provides guidelines for AI agents contributing to the "Curse of Redville 2025" Unity project. Adhering to these conventions is crucial for maintaining code quality and consistency.
 
@@ -41,7 +41,7 @@ The project follows a separation of concerns pattern, loosely based on MVC/MVP, 
 | Public Fields/Properties| `PascalCase`                             | `Capacity`, `IsFull`       |
 | Private Fields          | `_camelCase` (leading underscore)        | `_slots`, `_slotsCount`    |
 | Methods                 | `PascalCase`                             | `TryAdd`, `RecalculateTotals`|
-| Local Variables         | `camelCase`                              | `remainingStack`, `quantity` |
+| Local Variables         | `camelCase`                              | `builder`, `quantity` |
 | Method Parameters       | `camelCase`                              | `stackToAdd`, `item`       |
 
 ### Variable Declarations
@@ -61,12 +61,14 @@ The project follows a separation of concerns pattern, loosely based on MVC/MVP, 
 ### Formatting
 
 *   **Indentation**: Use 2 spaces for indentation. Do not use tabs.
-*   **Braces**: Use the K&R style, where the opening brace is on the same line as the statement.
+*   **Braces**: Use the K&R style, where the opening brace is on the same line as the statement. Always use braces for `if` statements, even if they are single-line.
 
     ```csharp
     public class MyClass {
       private void MyMethod() {
-        // code
+        if (condition) {
+          // code
+        }
       }
     }
     ```
@@ -81,6 +83,15 @@ The project follows a separation of concerns pattern, loosely based on MVC/MVP, 
       // ... class definition
     }
     ```
+
+*   **Attributes**: Place attributes on the line directly above the field or property they are decorating.
+
+    ```csharp
+    [SerializeField]
+    private int _myField;
+    ```
+
+*   **Newlines**: Separate logical sections of code with newlines to improve readability.
 
 *   **Fields**: Use `[SerializeField]` for private fields that need to be exposed to the Unity Inspector. Public fields should be avoided unless necessary for a public API.
 *   **Readonly**: Use `readonly` for fields that are initialized only in the constructor or at declaration.
