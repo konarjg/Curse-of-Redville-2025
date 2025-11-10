@@ -53,7 +53,7 @@ namespace __MAIN.Source.Inventory.SlotInventory {
 
       for (int i = 0; i < _inventory.Capacity; i++) {
         _inventory.TryGetStackAtIndex(i, out ItemStack stack);
-        bool isVisible = stack != null && _filteredItems.Contains(stack.Item);
+        bool isVisible = stack == null || _filteredItems.Contains(stack.Item);
         _slotDisplayInfos.Add(new SlotDisplayInfo(stack, isVisible));
       }
 
