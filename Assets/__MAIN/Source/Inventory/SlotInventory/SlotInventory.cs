@@ -80,7 +80,7 @@ namespace __MAIN.Source.Inventory.SlotInventory {
 
       if (filters.Stacks != null && filters.Stacks.Count > 0) {
         HashSet<ItemData> quantityMatchLookup = new HashSet<ItemData>();
-        foreach (var requirement in filters.Stacks) {
+        foreach (ItemStack requirement in filters.Stacks) {
           if (_totalQuantitiesLookup.TryGetValue(requirement.Item, out int total) && total >= requirement.Quantity) {
             quantityMatchLookup.Add(requirement.Item);
           }
@@ -182,7 +182,7 @@ namespace __MAIN.Source.Inventory.SlotInventory {
 
     private void RecalculateTotals() {
       _totalQuantitiesLookup.Clear();
-      foreach (var stack in _slots) {
+      foreach (ItemStack stack in _slots) {
         if (stack != null) {
           _totalQuantitiesLookup.TryGetValue(stack.Item, out int currentSum);
           _totalQuantitiesLookup[stack.Item] = currentSum + stack.Quantity;

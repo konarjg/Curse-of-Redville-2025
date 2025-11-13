@@ -14,7 +14,7 @@ namespace __MAIN.Source.Inventory.SlotInventory {
     [SerializeField]
     private GameEvent<List<SlotDisplayInfo>> _onDisplayInfoChanged;
 
-    private IInventory _inventory;
+    private SlotInventory _inventory;
     private InventoryFilters _filters = new();
     private readonly Dictionary<string, HashSet<ItemData>> _filteredItemsCache = new();
     private readonly List<SlotDisplayInfo> _slotDisplayInfos = new();
@@ -35,17 +35,27 @@ namespace __MAIN.Source.Inventory.SlotInventory {
     }
 
     private void OnInventoryChanged(IInventory inventory) {
-      if (_inventory == null) {
-        _inventory = inventory;
+      if (inventory is not SlotInventory) {
+        return;
       }
+      
+      if (_inventory == null) {
+        _inventory = inventory as SlotInventory;
+      } 
+      
       _filteredItemsCache.Clear();
       UpdateDisplayInfo();
     }
 
     private void OnInventoryReordered(IInventory inventory) {
-      if (_inventory == null) {
-        _inventory = inventory;
+      if (inventory is not SlotInventory) {
+        return;
       }
+      
+      if (_inventory == null) {
+        _inventory = inventory as SlotInventory;
+      }
+      
       UpdateDisplayInfo();
     }
 
