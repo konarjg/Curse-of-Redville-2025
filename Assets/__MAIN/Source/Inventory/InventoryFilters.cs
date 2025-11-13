@@ -23,13 +23,13 @@ namespace __MAIN.Source.Inventory {
       StringBuilder builder = new();
 
       if (Categories != null) {
-        builder.Append(string.Join(",", Categories.Select(c => c.Id).OrderBy(id => id)));
+        builder.Append(string.Join(",", Categories.Select(c => c.name).OrderBy(id => id)));
       }
 
       builder.Append(";");
 
       if (Rarities != null) {
-        builder.Append(string.Join(",", Rarities.Select(r => r.Id).OrderBy(id => id)));
+        builder.Append(string.Join(",", Rarities.Select(r => r.ToString()).OrderBy(id => id)));
       }
 
       builder.Append(";");
